@@ -7,9 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Foto: typeof import('./src/components/photo/Foto.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     Photo: typeof import('./src/components/photo/Photo.vue')['default']
+    PhotoDialog: typeof import('./src/components/photo/PhotoDialog.vue')['default']
     PhotoForm: typeof import('./src/components/photo/PhotoForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
