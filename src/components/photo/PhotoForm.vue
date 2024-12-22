@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-row class="d-flex">
+    <v-row class="d-flex justify-space-between ga-3">
       <v-text-field v-model="title" />
       <v-file-input v-model="img" />
-      <v-btn @click="addPhoto">
+      <v-btn class="mt-3" @click="addPhoto">
         Добавить
       </v-btn>
     </v-row>
