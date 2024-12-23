@@ -1,11 +1,12 @@
 <template>
   <v-col cols="4">
-    <v-card @click="openPhoto">
+    <v-card v-if="photo" @click="openPhoto">
       <v-card-title>{{ photo.title }}</v-card-title>
       <v-card-text class="d-flex">
         <v-img :src="photo.url" width="200" height="200" />
       </v-card-text>
     </v-card>
+    <v-skeleton-loader v-else type="card" />
   </v-col>
 </template>
 

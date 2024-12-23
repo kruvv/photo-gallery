@@ -1,14 +1,12 @@
 <template>
-  <div class="text-center pa-4">
-    <v-dialog v-model="dialogVisible" max-width="600">
-      <v-card>
-        <v-card-title>{{ full_title }}</v-card-title>
-        <v-card-text>
-          <v-img :src="photo.url" />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-  </div>
+  <v-dialog v-model="dialogVisible" max-width="600">
+    <v-card>
+      <v-card-title>{{ full_title }}</v-card-title>
+      <v-card-text>
+        <v-img :src="photo.url" />
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
@@ -21,29 +19,29 @@ export default {
       requared: true,
       default: null
     },
-    value: {
-      type: Boolean,
-      default: false
-    }
-  }, emits: ['input'],
+    // value: {
+    //   type: Boolean,
+    // }
+  },
+  emits: ['input'],
   data: () => ({
-    dialogVisible: false
+    // dialogVisible: false
   }),
   computed: {
     full_title() {
       return `Название фотографии - ${this.photo.title}`
     }
   },
-  watch: {
-    value(newValue) {
-      this.dialogVisible = newValue
-    },
-    dialogVisible(newValue) {
-      this.$emit('input', newValue)
-    }
-  },
+  // watch: {
+  //   value(newValue) {
+  //     this.dialogVisible = newValue
+  //   },
+  //   dialogVisible(newValue) {
+  //     this.$emit('input', newValue)
+  //   }
+  // },
   created() {
-    this.dialogVisible = this.value
+    // this.dialogVisible = this.value
   },
 }
 </script>

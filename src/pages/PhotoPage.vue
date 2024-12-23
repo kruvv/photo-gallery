@@ -1,8 +1,11 @@
 <template>
   <v-container>
-    <PhotoForm @addphoto="addPhoto" />
+    <PhotoForm v-if="store.getAllPhotos.length < 11" @addphoto="addPhoto" />
+    <div v-else>
+      Вы не можете добавить больше фотографий
+    </div>
     <v-row>
-      <Photo v-for="photo of photos" :key="photo.id" :photo="photo" @open-photo="openPhoto" />
+      <Photo v-for="photo of store.getAllPhotos" :key="photo.id" :photo="photo" @open-photo="openPhoto" />
     </v-row>
     <PhotoDialog v-model="dialogVisible" :photo="currentPhoto" />
   </v-container>
@@ -12,36 +15,36 @@
 import PhotoDialog from '@/components/photo/PhotoDialog.vue'
 import Photo from "@/components/photo/Photo.vue";
 import PhotoForm from "@/components/photo/PhotoForm.vue";
+import { usePhotoStore } from '@/stores/index.ts'
+
+
 export default {
   name: "FotoPage",
   components: [Photo, PhotoForm, PhotoDialog],
-  data() {
+  setup() {
+    const store = usePhotoStore()
     return {
-      photos: [],
-      currentPhoto: {},
-      dialogVisible: false
-    };
+      store
+    }
   },
+  data: () => ({
+    currentPhoto: {},
+    dialogVisible: false
+  }),
   mounted() {
     // debugger;
-    this.fetchPhoto();
+    // this.fetchPhoto();
+    this.store.fetchPhoto()
   },
   methods: {
-    async fetchPhoto() {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/photos?_limit=5",
-      );
-      const data = await response.json();
-      this.photos = data;
-    },
     addPhoto(photo) {
-      this.photos.push(photo);
+      this.store.addPhoto(photo);
     },
     openPhoto(photo) {
       this.currentPhoto = photo;
       this.dialogVisible = true
     },
-  },
+  }
 };
 </script>
 
