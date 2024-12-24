@@ -1,49 +1,37 @@
 <template>
-  <v-dialog v-model="dialogVisible" max-width="600">
+  <v-dialog v-model="store.getDialogVisible" max-width="600" @click:outside="store.hideDialog(store)">
     <v-card>
-      <v-card-title>{{ full_title }}</v-card-title>
+      <v-card-title>{{ store.getCurrentPhotoTitle }}</v-card-title>
       <v-card-text>
-        <v-img :src="photo.url" />
+        <v-img :src="store.getCurrentPhoto.url" />
       </v-card-text>
     </v-card>
   </v-dialog>
 </template>
 
 <script lang="ts">
+import { usePhotoStore } from '@/stores/index.ts'
+
+// const store = usePhotoStore()
+// function full_title() {
+//   return `Название фотографии - ${store.getCurrentPhoto.title}`
+// }
 
 export default {
   name: "PhotoDialog",
-  props: {
-    photo: {
-      type: Object,
-      requared: true,
-      default: null
-    },
-    // value: {
-    //   type: Boolean,
-    // }
-  },
-  emits: ['input'],
-  data: () => ({
-    // dialogVisible: false
-  }),
-  computed: {
-    full_title() {
-      return `Название фотографии - ${this.photo.title}`
+  setup() {
+    const store = usePhotoStore()
+    return {
+      store
     }
-  },
-  // watch: {
-  //   value(newValue) {
-  //     this.dialogVisible = newValue
-  //   },
-  //   dialogVisible(newValue) {
-  //     this.$emit('input', newValue)
+  }
+  // computed: {
+  //   full_title() {
+  //     return `Название фотографии - ${this.store.getCurrentPhoto.title}`
   //   }
   // },
-  created() {
-    // this.dialogVisible = this.value
-  },
 }
+
 </script>
 
 <style scoped></style>

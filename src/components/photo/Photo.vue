@@ -1,6 +1,6 @@
 <template>
   <v-col cols="4">
-    <v-card v-if="photo" @click="openPhoto">
+    <v-card v-if="!store.getIsLoading" @click="openPhoto">
       <v-card-title>{{ photo.title }}</v-card-title>
       <v-card-text class="d-flex">
         <v-img :src="photo.url" width="200" height="200" />
@@ -11,6 +11,23 @@
 </template>
 
 <script lang="ts">
+import { usePhotoStore } from '@/stores/index.ts'
+
+// const store = usePhotoStore()
+
+// const props = defineProps({
+//   photo: {
+//     type: Object,
+//     required: true
+//   }
+// });
+//
+// function openPhoto() {
+//   store.setCurrentPhoto(store, props.photo)
+//   store.showDialog(store)
+// }
+
+
 export default {
   name: "Photo",
   props: {
@@ -19,10 +36,16 @@ export default {
       required: true,
     },
   },
-  emits: ['open-photo'],
+  setup() {
+    const store = usePhotoStore()
+    return {
+      store
+    }
+  },
   methods: {
     openPhoto() {
-      this.$emit('open-photo', this.photo)
+      this.store.setCurrentPhoto(this.store, this.photo)
+      this.store.showDialog(this.store)
     }
   },
 };

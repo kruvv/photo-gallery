@@ -5,9 +5,9 @@
       Вы не можете добавить больше фотографий
     </div>
     <v-row>
-      <Photo v-for="photo of store.getAllPhotos" :key="photo.id" :photo="photo" @open-photo="openPhoto" />
+      <Photo v-for="photo of store.getAllPhotos" :key="photo.id" :photo="photo" />
     </v-row>
-    <PhotoDialog v-model="dialogVisible" :photo="currentPhoto" />
+    <PhotoDialog />
   </v-container>
 </template>
 
@@ -27,22 +27,12 @@ export default {
       store
     }
   },
-  data: () => ({
-    currentPhoto: {},
-    dialogVisible: false
-  }),
   mounted() {
-    // debugger;
-    // this.fetchPhoto();
     this.store.fetchPhoto()
   },
   methods: {
     addPhoto(photo) {
       this.store.addPhoto(photo);
-    },
-    openPhoto(photo) {
-      this.currentPhoto = photo;
-      this.dialogVisible = true
     },
   }
 };
